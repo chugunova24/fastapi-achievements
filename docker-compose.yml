@@ -23,7 +23,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql@17/data:rw
     ports:
-      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      - "${POSTGRES_PORT}"
     networks:
       - app_network
 

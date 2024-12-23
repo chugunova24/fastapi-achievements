@@ -3,6 +3,9 @@
 # Остановить выполнение при ошибке
 set -e
 
+echo "Run alembic migration..."
+make alembic-upgrade
+
 echo "Starting FastAPI application..."
 poetry run uvicorn app.main:app --host 0.0.0.0 --port 8001 &
 UVICORN_PID=$!
