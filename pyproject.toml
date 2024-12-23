@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "achievements"
+version = "0.1.0"
+description = ""
+authors = ["Chugunova Tatiana <t.chugunova24@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.6"
+uvicorn = "^0.34.0"
+sqlalchemy = "^2.0.36"
+psycopg2-binary = "^2.9.10"
+alembic = "^1.14.0"
+pytest = "^8.3.4"
+httpx = "^0.28.1"
+pytest-asyncio = "^0.25.0"
+pydantic-settings = "^2.7.0"
+psycopg-binary = "^3.2.3"
+psycopg = "^3.2.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
