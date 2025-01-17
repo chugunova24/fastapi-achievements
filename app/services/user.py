@@ -28,11 +28,15 @@ def issue_achievement(
         user_id,
         db: Session,
         user_achievement: UserAchievementCreate
-):# Проверяем, существует ли пользователь
+):
+    # Проверяем, существует ли пользователь
     user = db.query(User).filter(User.id == user_id).first()
 
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found"
+        )
 
     # Проверяем, не было ли уже выдано это достижение пользователю
     existing_achievement = db.query(UserAchievement).filter(
@@ -41,7 +45,10 @@ def issue_achievement(
     ).first()
 
     if existing_achievement:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Achievement already awarded")
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Achievement already awarded"
+        )
 
     # Создание нового достижения для пользователя
     db_user_achievement = UserAchievement(
@@ -57,7 +64,8 @@ def issue_achievement(
         db.query(UserAchievement)
         .join(Achievement)
         .filter(UserAchievement.user_id == user_id)
-        .options(joinedload(UserAchievement.achievement))  # Оптимизация запроса для подгрузки достижений
+        # Оптимизация запроса для подгрузки достижений
+        .options(joinedload(UserAchievement.achievement))
         .all()
     )
 
@@ -66,9 +74,14 @@ def issue_achievement(
         achievement = ua.achievement
         achievements.append({
             "id": achievement.id,
-            "name": getattr(achievement, f"name_{user.language}", achievement.name_en),  # Локализация имени
+            "name": getattr(achievement,
+                            f"name_{user.language}",
+                            achievement.name_en),  # Локализация имени
             "points": achievement.points,
-            "description": getattr(achievement, f"description_{user.language}", achievement.description_en),  # Локализация описания
+            "description": getattr(
+                achievement,
+                f"description_{user.language}",
+                achievement.description_en),  # Локализация описания
             "issued_at": ua.issued_at
         })
 
@@ -103,7 +116,9 @@ def get_user_achievements(
         {
             "id": row.achievement_id,
             "name": getattr(row, f"name_{user.language}", row.name_en),
-            "description":  getattr(row, f"description_{user.language}", row.description_en),
+            "description":  getattr(row,
+                                    f"description_{user.language}",
+                                    row.description_en),
             "points":  row.points,
             "issued_at": row.issued_at,
         }

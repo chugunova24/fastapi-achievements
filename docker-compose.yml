@@ -7,12 +7,14 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - ./:/app
     ports:
       - "${APP_PORT}"
     depends_on:
       - db
     networks:
-      - app_network
+      - dockernet
 
   db:
     image: library/postgres:17
@@ -21,11 +23,11 @@ services:
     env_file:
       - .env
     volumes:
-      - postgres_data:/var/lib/postgresql@17/data:rw
+      - postgres_data:/var/lib/postgresql/data:rw
     ports:
       - "${POSTGRES_PORT}"
     networks:
-      - app_network
+      - dockernet
 
 #  test-db:
 #    image: library/postgres:17
@@ -39,7 +41,7 @@ services:
 #    ports:
 #      - "${POSTGRES_PORT_TEST}:${POSTGRES_PORT_TEST}"
 #    networks:
-#      - app_network
+#      - dockernet
 
   nginx:
     image: nginx:1.27.3
@@ -52,11 +54,11 @@ services:
     depends_on:
       - app
     networks:
-      - app_network
+      - dockernet
 
 volumes:
   postgres_data:
 
 networks:
-  app_network:
+  dockernet:
     driver: bridge

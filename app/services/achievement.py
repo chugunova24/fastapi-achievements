@@ -121,9 +121,11 @@ def get_users_with_points_difference(
         find_max: bool = True
 ):
     """
-    Универсальная функция для поиска пользователей с максимальной или минимальной разницей очков достижений.
+    Универсальная функция для поиска пользователей с максимальной
+    или минимальной разницей очков достижений.
     :param db: Сессия базы данных.
-    :param find_max: Если флаг равен True - ищет максимальную разницу, иначе минимальную.
+    :param find_max: Если флаг равен True - ищет максимальную
+    разницу, иначе минимальную.
     :return: Список пар пользователей с соответствующей разностью очков.
     """
     # Подзапрос для получения суммарных очков пользователей
@@ -152,9 +154,12 @@ def get_users_with_points_difference(
             user2.c.user_id.label("user_2_id"),
             user2.c.user_name.label("user_2_name"),
             user2.c.total_points.label("user_2_points"),
-            func.abs(user1.c.total_points - user2.c.total_points).label("points_difference"),
+            func.abs(
+                user1.c.total_points - user2.c.total_points
+            ).label("points_difference"),
         )
-        .filter(user1.c.user_id < user2.c.user_id)  # Исключаем повторяющиеся пары
+        # Исключаем повторяющиеся пары
+        .filter(user1.c.user_id < user2.c.user_id)
         .subquery()
     )
 
@@ -166,7 +171,10 @@ def get_users_with_points_difference(
     )
 
     if points_difference is None:
-        raise HTTPException(status_code=404, detail="Not enough data to calculate differences")
+        raise HTTPException(
+            status_code=404,
+            detail="Not enough data to calculate differences"
+        )
 
     # Получение всех пар с соответствующей разностью
     result = (

@@ -1,9 +1,8 @@
-from datetime import datetime
+from datetime import datetime, UTC
 
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, ForeignKey, DateTime, Enum
+from sqlalchemy import Integer, String, ForeignKey, DateTime
 from app.db.base import Base
-from app.enums.languages import LanguageEnum
 
 
 class User(Base):
@@ -19,13 +18,32 @@ class User(Base):
         back_populates="user"
     )
 
+
 class UserAchievement(Base):
     __tablename__ = "user_achievements"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    user_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=False)
-    achievement_id: Mapped[int] = mapped_column(Integer, ForeignKey("achievements.id"), nullable=False)
-    issued_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
+    id: Mapped[int] = mapped_column(
+        Integer,
+        primary_key=True,
+        index=True
+    )
+    user_id: Mapped[int] = mapped_column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=False
+    )
+    achievement_id: Mapped[int] = mapped_column(
+        Integer,
+        ForeignKey("achievements.id"),
+        nullable=False
+    )
+    issued_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.now(UTC)
+    )
 
-    user: Mapped["User"] = relationship("User", back_populates="achievements")
+    user: Mapped["User"] = relationship(
+        "User",
+        back_populates="achievements"
+    )
     achievement: Mapped["Achievement"] = relationship("Achievement")

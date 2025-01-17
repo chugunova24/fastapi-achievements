@@ -7,6 +7,9 @@ install-dep:
 start-server-dev:
 	./scripts/start-dev.sh
 
+linter:
+	poetry run flake8 .
+
 run-tests:
 	poetry run pytest -s -v -W ignore
 

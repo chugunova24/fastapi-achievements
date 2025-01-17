@@ -8,10 +8,15 @@ from app.core.config import settings
 
 
 # Создаем движок для базы данных
-engine = create_engine(settings.database_url, echo=True)
+engine = create_engine(settings.database_url, echo=False)
 
 # Создаем фабрику сессий
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)
+
 
 # Генератор сессий баз данных
 def get_db():
@@ -20,6 +25,7 @@ def get_db():
         yield db
     finally:
         db.close()
+
 
 # Тип SessionDep
 # Указывает, что при использовании SessionDep

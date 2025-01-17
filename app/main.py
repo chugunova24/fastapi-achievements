@@ -32,7 +32,9 @@ class LoggingMiddleware(BaseHTTPMiddleware):
 
         # Логирование ответа
         process_time = time.time() - start_time
-        logger.info(f"Response: {response.status_code} | Processing time: {process_time:.4f}s")
+        logger.info(
+            f"Response: {response.status_code} |"
+            f" Processing time: {process_time:.4f}s")
 
         return response
 

@@ -24,8 +24,12 @@ def init_db(db: Session):
             name_en="I fucked it all",
             name_ru="В рот это все",
             points=10,
-            description_en="Sorry, I won't come to school...no, no...I'm not sick...I just...",
-            description_ru="изивините я не приду на учебу...неь нет...я не заболел... я просто...",
+            description_en="Sorry, I won't come to school"
+                           "...no, no...I'm not sick...I "
+                           "just...",
+            description_ru="изивините я не приду на учебу"
+                           "...неь нет...я не заболел... "
+                           "я просто...",
         )
         achievement2 = Achievement(
             name_en="Guys, I woke up at 5 pm.",
@@ -60,14 +64,20 @@ def init_db(db: Session):
             name_ru="Я нормальный",
             points=150,
             description_en="and can be trusted to work from home",
-            description_ru="и мне можно доверить работу из дома правда правда",
+            description_ru="и мне можно доверить работу из "
+                           "дома правда правда",
         )
         achievement7 = Achievement(
             name_en="With rude people online",
             name_ru="С грубиянами в сети",
             points=70,
-            description_en="we need to go out one on one and smash a bottle on his uh face and drown him in a ditch so he dies, you freak",
-            description_ru="надо выходить один на один и разбить бутылку об его эээ рожу и утопить в э вканаве чтоб он сдох урод",
+            description_en="we need to go out one on one and "
+                           "smash a bottle on his uh face and"
+                           " drown him in a ditch so he dies,"
+                           " you freak",
+            description_ru="надо выходить один на один и разбить"
+                           " бутылку об его эээ рожу и утопить"
+                           " в э вканаве чтоб он сдох урод",
         )
         db.add(achievement1)
         db.add(achievement2)

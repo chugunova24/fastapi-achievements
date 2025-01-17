@@ -37,7 +37,6 @@ class Settings(BaseSettings):
     # Настройки Nginx
     nginx_port: int = Field(alias="NGINX_PORT")
 
-
     # Дополнительные настройки
     environment: str = Field(default="development", alias="ENV")
 

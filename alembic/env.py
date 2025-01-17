@@ -23,6 +23,7 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
+
 def get_url():
     user = settings.postgres_user
     password = settings.postgres_password
@@ -30,7 +31,6 @@ def get_url():
     port = settings.postgres_port
     db = settings.postgres_db
     return f"postgresql+psycopg://{user}:{password}@{server}:{port}/{db}"
-
 
 
 # other values from the config, defined by the needs of env.py,
@@ -79,7 +79,6 @@ def run_migrations_online() -> None:
         poolclass=pool.NullPool,
     )
 
-
     with connectable.connect() as connection:
         context.configure(
             connection=connection, target_metadata=target_metadata
@@ -87,7 +86,6 @@ def run_migrations_online() -> None:
 
         with context.begin_transaction():
             context.run_migrations()
-
 
 if context.is_offline_mode():
     run_migrations_offline()
